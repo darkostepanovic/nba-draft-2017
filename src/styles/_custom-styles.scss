@@ -1,0 +1,45 @@
+nav {
+  background-color: #1D428A;
+
+  .brand-logo {
+    position: static;
+    height: 100%;
+
+    img {
+      height: 100%;
+    }
+  }
+}
+
+table {
+  &.striped {
+    & > tbody {
+      & > tr {
+        &:nth-child(odd) {
+          background-color: rgba(29, 66, 138, .1);
+        }
+      }
+    }
+  }
+}
+
+tr {
+  cursor: pointer;
+}
+
+.pagination {
+
+  li {
+    color: #444;
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    line-height: 30px;
+    cursor: pointer;
+
+    &.active {
+      color: #fff;
+      background-color: #1D428A;
+    }
+  }
+}
