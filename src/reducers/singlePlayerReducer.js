@@ -2,7 +2,7 @@ import { SINGLE_PLAYER, FETCHING_SINGLE_PLAYER } from "../actions/types";
 
 const initialState = {
     isFetching: false
-}
+};
 
 export default function singlePlayerReducer(state = initialState, action) {
     switch (action.type) {

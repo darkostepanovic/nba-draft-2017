@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {PLAYERS, SINGLE_PLAYER, FETCHING_SINGLE_PLAYER, ALL_TEAMS, SELECTED_TEAM} from './types';
+import {PLAYERS, SINGLE_PLAYER, FETCHING_SINGLE_PLAYER, ALL_TEAMS, SELECTED_TEAM, ADD_FAVORITE, REMOVE_FAVORITE, REMOVE_ALL_FAVORITES} from './types';
 import fetchJsonp from 'fetch-jsonp';
 
 export const getAllPlayers = () => (dispatch, getState) => {
@@ -82,4 +82,16 @@ export const getSinglePlayer = id => dispatch => {
 
 export const selectedTeam = team => dispatch => {
     dispatch({type: SELECTED_TEAM, payload: team});
+};
+
+export const addFavorite = singlePlayer => (dispatch) => {
+    dispatch({type: ADD_FAVORITE, payload: singlePlayer});
+};
+
+export const removeFavorite = singlePlayer => (dispatch) => {
+    dispatch({type: REMOVE_FAVORITE, payload: singlePlayer.id});
+};
+
+export const removeAllFavorites = () => (dispatch) => {
+    dispatch({type: REMOVE_ALL_FAVORITES});
 };

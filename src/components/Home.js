@@ -1,14 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as actions from '../actions';
 
 import Table from './Table';
+import Modal from "./ui/Modal";
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            renderModal: false
+        }
+
+        this._closeModal = this._closeModal.bind(this);
+    }
 
     componentDidMount() {
         this.props.getAllPlayers();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.favorites.length > 10 && this.state.renderModal === false) {
+            this.setState({
+                renderModal: true
+            })
+        }
     }
 
     _renderLoading = () => (
@@ -42,41 +61,57 @@ class Home extends Component {
         return options;
     };
 
+    _closeModal() {
+        this.setState({
+            renderModal: false
+        });
+
+        const removeLast = this.props.favorites[this.props.favorites.length - 1];
+
+        this.props.removeFavorite(removeLast);
+    }
+
 
     render() {
+
         return (
-            <div className='container'>
-                <div className="row">
-                    <div className="col-md-12">
-                        <h1>DRAFT CLASS 2017</h1>
+            <div>
+                {this.state.renderModal ? <Modal onModalClose={this._closeModal}/> : null}
+                <div className='container'>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h1>DRAFT CLASS 2017</h1>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-9">
-                        { this.props.players ? this._renderTable(this.props.players) : this._renderLoading()}
-                    </div>
-                    <div className="col-md-3">
-                        <div>
-                            <label>Choose a team</label>
-                            <select onChange={this._handleSelectChange} id="teamSelect" defaultValue="choose">
-                                <option value="choose">Choose team: </option>
-                                <option value="all">ALL TEAMS</option>
-                                {this._renderOptions()}
-                            </select>
+                    <div className="row">
+                        <div className="col-md-9">
+                            {this.props.players ? this._renderTable(this.props.players) : this._renderLoading()}
+                        </div>
+                        <div className="col-md-3">
+                            <div className="select-wrapper">
+                                <label>Choose a team</label>
+                                <select onChange={this._handleSelectChange} id="teamSelect" defaultValue="choose">
+                                    <option value="choose">Choose team:</option>
+                                    <option value="all">ALL TEAMS</option>
+                                    {this._renderOptions()}
+                                </select>
+                            </div>
+                            <button className="btn"><Link to="/favorites">View Favorites</Link></button>
                         </div>
                     </div>
                 </div>
-
             </div>
+
         )
     }
 }
 
-const mapStateToProps = ({players, singlePlayer, teams}) => {
+const mapStateToProps = ({players, singlePlayer, teams, favorites}) => {
     return {
         players,
         singlePlayer,
-        teams
+        teams,
+        favorites
     }
 };
 

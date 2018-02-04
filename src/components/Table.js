@@ -47,15 +47,15 @@ class Table extends Component {
         }
         const renderPageNumbers = pageNumbers.map(number => (
             number === this.state.currentPage ?
-                <li className="waves-effect active" key={number} id={number} onClick={this._handleClick}>{number}</li> :
-                <li className="waves-effect" key={number} id={number} onClick={this._handleClick}>{number}</li>
+                <li className="active" key={number} id={number} onClick={this._handleClick}>{number}</li> :
+                <li key={number} id={number} onClick={this._handleClick}>{number}</li>
 
         ));
 
         return (
             <div>
                 <hr/>
-                <table className="responsive-table striped">
+                <table className="responsive-table striped centered">
                     <thead>
                     <tr>
                         <th>First Name</th>
@@ -63,6 +63,7 @@ class Table extends Component {
                         <th>Position on draft</th>
                         <th>Club</th>
                         <th>Former Club</th>
+                        <th>Choose favorites</th>
                     </tr>
                     </thead>
                     <tbody>
