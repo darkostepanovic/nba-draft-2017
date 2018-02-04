@@ -6,7 +6,7 @@ class Table extends Component {
         super(props);
         this.state = {
             currentPage: 1,
-            itemsPerPage: 20
+            itemsPerPage: this.props.itemsPerPage
         }
     }
 
@@ -53,7 +53,6 @@ class Table extends Component {
 
         return (
             <div>
-                <h1>DRAFT CLASS 2017</h1>
                 <hr/>
                 <table className="responsive-table striped">
                     <thead>
@@ -71,7 +70,7 @@ class Table extends Component {
                     ))}
                     </tbody>
                 </table>
-                {pageNumbers < 1 ? null :
+                {pageNumbers <= 1 ? null :
                     <ul className="pagination right" id="pagination-list">
                         {this.state.currentPage === 1 ?
                             null :

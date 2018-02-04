@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import * as actions from '../actions';
 
 import Table from './Table';
@@ -10,31 +11,31 @@ class Home extends Component {
         this.props.getAllPlayers();
     }
 
-    _renderLoading = () => {
-        return (
-            <div>
-                <h1>LOADING...</h1>
-            </div>
-        )
-    };
+    _renderLoading = () => (
+        <div>
+            <h1>LOADING...</h1>
+        </div>
+    );
 
     _renderTable = (players) => (
-        <Table data={players} {...this.props} />
+        <Table data={players} itemsPerPage={20} {...this.props} />
     );
 
     render() {
         return (
             <div className='container'>
-                {this.props.players ? this._renderTable(this.props.players) : this._renderLoading()}
+                <h1>DRAFT CLASS 2017</h1>
+                { this.props.players ? this._renderTable(this.props.players) : this._renderLoading()}
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {
-    return (
-        state.players
-    )
+const mapStateToProps = ({players, singlePlayer}) => {
+    return {
+        players,
+        singlePlayer
+    }
 };
 
 export default connect(mapStateToProps, actions)(Home);

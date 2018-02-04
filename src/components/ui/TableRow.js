@@ -6,8 +6,8 @@ import * as actions from '../../actions';
 class TableRow extends Component {
 
     handleClick = (id) => {
-        //this.props.history.push('/favorites');
         this.props.getSinglePlayer(id);
+        this.props.history.push('/profile');
     };
 
     render() {
@@ -21,12 +21,12 @@ class TableRow extends Component {
             </tr>
         )
     }
-};
+}
 
 const mapStateToProps = state => {
     return (
         state.singlePlayer
     )
-}
+};
 
 export default connect(mapStateToProps, actions)(TableRow);

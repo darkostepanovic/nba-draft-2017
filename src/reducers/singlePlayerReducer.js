@@ -1,11 +1,20 @@
-import { SINGLE_PLAYER } from "../actions/types";
+import { SINGLE_PLAYER, FETCHING_SINGLE_PLAYER } from "../actions/types";
 
-export default function singlePlayerReducer(state = {}, action) {
+const initialState = {
+    isFetching: false
+}
+
+export default function singlePlayerReducer(state = initialState, action) {
     switch (action.type) {
         case SINGLE_PLAYER:
             return {
                 ...state,
-                singlePlayer: action.payload
+                ...action.payload
+            };
+        case FETCHING_SINGLE_PLAYER:
+            return {
+                ...state,
+                isFetching: action.payload
             };
         default:
             return state;

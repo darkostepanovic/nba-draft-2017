@@ -1,4 +1,5 @@
-import { PLAYERS, SINGLE_PLAYER } from './types';
+import moment from 'moment';
+import { PLAYERS, SINGLE_PLAYER, FETCHING_SINGLE_PLAYER } from './types';
 import fetchJsonp from 'fetch-jsonp';
 
 export const getAllPlayers = () => dispatch => {
@@ -37,12 +38,33 @@ export const getAllPlayers = () => dispatch => {
 };
 
 export const getSinglePlayer = id => dispatch => {
+    dispatch({type: FETCHING_SINGLE_PLAYER, payload: true});
     fetchJsonp('http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=' + id)
         .then(response => {
             return response.json();
         })
         .then(json => {
-            console.log(json);
-            dispatch({type: SINGLE_PLAYER})
+
+            const birthdate = json.resultSets[0].rowSet[0][6];
+            const formattedBirthdate = moment(birthdate).format('DD/MM/YYYY');
+            const country = json.resultSets[0].rowSet[0][8];
+            const school = json.resultSets[0].rowSet[0][7];
+            const height = json.resultSets[0].rowSet[0][10];
+            const weight = json.resultSets[0].rowSet[0][11];
+            const nbaTeam = json.resultSets[0].rowSet[0][17];
+            const position = json.resultSets[0].rowSet[0][14];
+
+            const singlePlayer = {
+                name: json.resultSets[0].rowSet[0][3],
+                birthdate: formattedBirthdate,
+                country: country,
+                school: school,
+                height: height,
+                weight: weight,
+                nbaTeam: nbaTeam,
+                position: position
+            };
+            dispatch({type: SINGLE_PLAYER, payload: singlePlayer});
+            dispatch({type: FETCHING_SINGLE_PLAYER, payload: false});
         })
 }
