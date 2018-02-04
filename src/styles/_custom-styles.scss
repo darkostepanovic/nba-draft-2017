@@ -11,6 +11,18 @@ nav {
   }
 }
 
+.dropdown-content {
+  li {
+    > span {
+      color: #1D428A;
+    }
+  }
+}
+
+select {
+  display: block;
+}
+
 table {
   &.striped {
     & > tbody {

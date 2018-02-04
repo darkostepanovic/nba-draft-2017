@@ -4,6 +4,7 @@ import TableRow from './ui/TableRow';
 class Table extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             currentPage: 1,
             itemsPerPage: this.props.itemsPerPage
@@ -65,9 +66,11 @@ class Table extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {currentItems.map(row => (
-                        <TableRow key={row.id} row={row} {...this.props}/>
-                    ))}
+                    {currentItems.map(row => {
+                        return (
+                            <TableRow key={row.id} row={row} {...this.props}/>
+                        )
+                    })}
                     </tbody>
                 </table>
                 {pageNumbers <= 1 ? null :

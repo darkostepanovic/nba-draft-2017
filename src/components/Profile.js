@@ -19,6 +19,10 @@ class Profile extends Component {
         <Card data={this.props.singlePlayer}/>
     );
 
+    _handleClick = () => {
+        this.props.history.goBack();
+    };
+
     render() {
         const { singlePlayer } = this.props;
 
@@ -28,7 +32,7 @@ class Profile extends Component {
                     <div className="col-md-6 col-md-offset-3">
                         <h1>PLAYER PROFILE</h1>
                         {singlePlayer.name === undefined || singlePlayer.isFetching === true ? this._renderLoading() : this._renderCard()}
-                        <button on></button>
+                        <button className="btn" onClick={this._handleClick}><i className="material-icons left">arrow_back</i> Back</button>
                     </div>
                 </div>
 

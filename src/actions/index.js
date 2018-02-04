@@ -1,9 +1,8 @@
 import moment from 'moment';
-import { PLAYERS, SINGLE_PLAYER, FETCHING_SINGLE_PLAYER } from './types';
+import {PLAYERS, SINGLE_PLAYER, FETCHING_SINGLE_PLAYER, ALL_TEAMS, SELECTED_TEAM} from './types';
 import fetchJsonp from 'fetch-jsonp';
 
-export const getAllPlayers = () => dispatch => {
-
+export const getAllPlayers = () => (dispatch, getState) => {
     fetchJsonp('http://stats.nba.com/stats/drafthistory?LeagueID=00&Season=2017')
     .then(response => {
         return response.json();
@@ -11,6 +10,7 @@ export const getAllPlayers = () => dispatch => {
     .then(json => {
         const players = json.resultSets[0].rowSet;
         const allPlayers = [];
+        const allTeams = [];
         for (let i = 0; i<players.length; i++) {
             let id = players[i][0];
             let name = players[i][1];
@@ -31,9 +31,20 @@ export const getAllPlayers = () => dispatch => {
                 previousTeam
             });
 
-            allPlayers.push(singlePlayer);
+            if(getState().selected.team === "all") {
+                allPlayers.push(singlePlayer);
+            } else {
+                if (getState().selected.team === team) {
+                    allPlayers.push(singlePlayer);
+                }
+            }
+
+            if(!allTeams.includes(team)) {
+                allTeams.push(team);
+            }
         }
         dispatch({type: PLAYERS, payload: allPlayers});
+        dispatch({type: ALL_TEAMS, payload: allTeams});
     });
 };
 
@@ -67,4 +78,8 @@ export const getSinglePlayer = id => dispatch => {
             dispatch({type: SINGLE_PLAYER, payload: singlePlayer});
             dispatch({type: FETCHING_SINGLE_PLAYER, payload: false});
         })
-}
+};
+
+export const selectedTeam = team => dispatch => {
+    dispatch({type: SELECTED_TEAM, payload: team});
+};
