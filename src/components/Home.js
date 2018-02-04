@@ -26,6 +26,22 @@ class Home extends Component {
         this.props.getAllPlayers();
     };
 
+    _renderOptions = () => {
+        let element = document.getElementById('teamSelect');
+
+        while (element!==null && element.hasChildNodes() && element.children.length > 2) {
+            element.removeChild(element.lastChild);
+        }
+
+        let options = this.props.teams.map(function(team, index) {
+            return (
+                <option key={index} value={team}>{team}</option>
+            )
+        });
+
+        return options;
+    };
+
 
     render() {
         return (
@@ -42,14 +58,10 @@ class Home extends Component {
                     <div className="col-md-3">
                         <div>
                             <label>Choose a team</label>
-                            <select onChange={this._handleSelectChange}>
+                            <select onChange={this._handleSelectChange} id="teamSelect" defaultValue="choose">
+                                <option value="choose">Choose team: </option>
                                 <option value="all">ALL TEAMS</option>
-                                {this.props.teams.map(function(team, index) {
-                                        return (
-                                            <option key={index} value={team}>{team}</option>
-                                        )
-                                    })
-                                }
+                                {this._renderOptions()}
                             </select>
                         </div>
                     </div>
