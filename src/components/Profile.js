@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Card from "./ui/Card";
 
+import * as actions from '../actions';
+
 class Profile extends Component {
     componentWillMount() {
         if(this.props.singlePlayer.name === undefined && this.props.singlePlayer.isFetching === false) {
@@ -20,6 +22,7 @@ class Profile extends Component {
     );
 
     _handleClick = () => {
+        this.props.removeAllFavorites();
         this.props.history.goBack();
     };
 
@@ -47,4 +50,4 @@ const mapStateToProps = ({singlePlayer}) => {
     }
 };
 
-export default connect(mapStateToProps, null)(Profile);
+export default connect(mapStateToProps, actions)(Profile);
