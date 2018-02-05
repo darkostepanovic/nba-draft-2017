@@ -77,7 +77,7 @@ class Home extends Component {
         return (
             <div>
                 {this.state.renderModal ? <Modal onModalClose={this._closeModal}/> : null}
-                <div className='container'>
+                <div className='container-custom'>
                     <div className="row">
                         <div className="col-md-12">
                             <h1>DRAFT CLASS 2017</h1>

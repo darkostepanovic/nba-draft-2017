@@ -30,7 +30,7 @@ class Favorites extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container-custom">
                 <div className="row--flex">
                     <div className="col-md-8">
                         <h1>Your Favorites</h1>

@@ -30,7 +30,7 @@ class Profile extends Component {
         const { singlePlayer } = this.props;
 
         return (
-            <div className="container">
+            <div className="container-custom">
                 <div className="row">
                     <div className="col-md-6 col-md-offset-3">
                         <h1>PLAYER PROFILE</h1>

@@ -9,7 +9,7 @@
 ---------------------*/
 
 // container
-$container: 1640px;
+$container: 1380px;
 
 // grid columns
 $grid-columns: 12;
@@ -76,11 +76,11 @@ $gutter: 20px;
 ---------------------*/
 
 // containers
-.container {
+.container-custom {
   @include clearfix();
   margin: 0 auto;
   padding: 0 $gutter;
-  width: $container;
+  max-width: $container;
 }
 
 .container-fluid {
