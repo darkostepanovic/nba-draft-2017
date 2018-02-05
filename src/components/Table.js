@@ -54,7 +54,6 @@ class Table extends Component {
 
         return (
             <div>
-                <hr/>
                 <table className="responsive-table striped centered">
                     <thead>
                     <tr>

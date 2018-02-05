@@ -80,13 +80,11 @@ class Home extends Component {
                 <div className='container-custom'>
                     <div className="row">
                         <div className="col-md-12">
-                            <h1>DRAFT CLASS 2017</h1>
+                            <h1 className="right">DRAFT CLASS 2017</h1>
                         </div>
                     </div>
+                    <hr/>
                     <div className="row">
-                        <div className="col-md-9">
-                            {this.props.players ? this._renderTable(this.props.players) : this._renderLoading()}
-                        </div>
                         <div className="col-md-3">
                             <div className="select-wrapper">
                                 <label>Choose a team</label>
@@ -97,6 +95,9 @@ class Home extends Component {
                                 </select>
                             </div>
                             <button className="btn"><Link to="/favorites">View Favorites</Link></button>
+                        </div>
+                        <div className="col-md-9">
+                            {this.props.players ? this._renderTable(this.props.players) : this._renderLoading()}
                         </div>
                     </div>
                 </div>
